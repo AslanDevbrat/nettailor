@@ -11,10 +11,10 @@ GPU = 0
 
 ########################## TRAIN TEACHER ############################################### 
 
-BATCH_SIZE = 64
-EPOCHS = 50
+BATCH_SIZE = 8
+EPOCHS = 1
 LR = 0.01
-LR_EPOCHS = 20
+LR_EPOCHS = 1
 WEIGHT_DECAY = 0.0005
 
 teacher_dir = 'checkpoints/{task}/{arch}'.format(task=TASK, arch=BACKBONE)
@@ -45,9 +45,9 @@ COMPLEXITY_COEFF = 0.3
 TEACHER_COEFF = 10.0
 MAX_SKIP = 3
 
-BATCH_SIZE = 32
-EPOCHS = 50
-LR_EPOCHS = 20
+BATCH_SIZE = 8
+EPOCHS = 1
+LR_EPOCHS = 1
 LR = 0.1
 
 teacher_fn = teacher_dir + '/checkpoint.pth.tar'
@@ -73,19 +73,19 @@ cmd = ("CUDA_VISIBLE_DEVICES={gpu} "
 			complexity=COMPLEXITY_COEFF, teacher=TEACHER_COEFF, epochs=EPOCHS, bs=BATCH_SIZE, lr=LR, lr_epochs=LR_EPOCHS, wd=WEIGHT_DECAY)
 
 print(cmd)
-# os.system(cmd)
+os.system(cmd)
 
 print(cmd + " --evaluate")
-# os.system(cmd + " --evaluate")
+os.system(cmd + " --evaluate")
 
 ########################## PRUNE STUDENT AND RETRAIN ############################################### 
 
 NUM_BLOCKS_PRUNED = 7
 PROXY_PRUNING_THRESHOLD = 0.04
-BATCH_SIZE = 32
-EPOCHS = 60
+BATCH_SIZE = 8
+EPOCHS = 1
 LR = 0.01
-LR_EPOCHS = 20
+LR_EPOCHS = 1
 
 pruned_model_fn = 'checkpoints/{task}/nettailor-{backbone}-{max_skip}Skip-T{teacher}-C{complexity}-Pruned{thr}'.format(
 	task=TASK, backbone=BACKBONE, max_skip=MAX_SKIP, teacher=TEACHER_COEFF, complexity=COMPLEXITY_COEFF, thr=NUM_BLOCKS_PRUNED)
@@ -111,7 +111,7 @@ cmd = ("CUDA_VISIBLE_DEVICES={gpu} "
 			thr=NUM_BLOCKS_PRUNED, adapt_thr=PROXY_PRUNING_THRESHOLD, max_skip=MAX_SKIP, teacher=TEACHER_COEFF, epochs=EPOCHS, bs=BATCH_SIZE, lr=LR, lr_epochs=LR_EPOCHS)
 
 print(cmd)
-# os.system(cmd)
+os.system(cmd)
 
 print(cmd + " --evaluate")
-# os.system(cmd + " --evaluate")
+os.system(cmd + " --evaluate")

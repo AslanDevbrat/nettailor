@@ -32,7 +32,9 @@ args = parser.parse_args()
 proj_utils.prep_output_folder(args.model_dir, args.evaluate)
 DEVICE = torch.device("cuda:0")
 
+
 def main():
+    torch.cuda.empty_cache()
     mode = 'train' if not args.evaluate else 'eval'
     logger = proj_utils.Logger(args.log2file, mode=mode, model_dir=args.model_dir)
 

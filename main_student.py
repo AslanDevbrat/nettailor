@@ -10,6 +10,7 @@ from models import teacher_resnet, teacher_resnet_wide
 from models import student_resnet, student_resnet_wide
 import dataloaders
 import proj_utils
+import torch
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model-dir', metavar='MODEL_DIR',
@@ -58,6 +59,7 @@ DEVICE = torch.device("cuda:0")
 proj_utils.prep_output_folder(args.model_dir, args.evaluate)
 
 def main():
+    torch.cuda.empty_cache()
     mode = 'train' if not args.evaluate else 'eval'
     logger = proj_utils.Logger(args.log2file, mode=mode, model_dir=args.model_dir)
 

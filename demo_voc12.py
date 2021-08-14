@@ -11,10 +11,10 @@ GPU = 0
 
 ########################## TRAIN TEACHER ############################################### 
 
-BATCH_SIZE = 64
-EPOCHS = 50
+BATCH_SIZE = 8
+EPOCHS = 1
 LR = 0.01
-LR_EPOCHS = 20
+LR_EPOCHS = 1
 WEIGHT_DECAY = 0.0005
 
 teacher_dir = 'checkpoints/{task}/{arch}'.format(task=TASK, arch=BACKBONE)
@@ -45,9 +45,9 @@ COMPLEXITY_COEFF = 0.3
 TEACHER_COEFF = 10.0
 MAX_SKIP = 3
 
-BATCH_SIZE = 32
-EPOCHS = 50
-LR_EPOCHS = 20
+BATCH_SIZE = 8
+EPOCHS = 1
+LR_EPOCHS = 1
 LR = 0.1
 
 teacher_fn = teacher_dir + '/checkpoint.pth.tar'
@@ -82,10 +82,10 @@ os.system(cmd + " --evaluate")
 
 NUM_BLOCKS_PRUNED = 3
 PROXY_PRUNING_THRESHOLD = 0.1
-BATCH_SIZE = 32
-EPOCHS = 60
+BATCH_SIZE = 8
+EPOCHS = 1
 LR = 0.01
-LR_EPOCHS = 20
+LR_EPOCHS = 1
 
 pruned_model_fn = 'checkpoints/{task}/nettailor-{backbone}-{max_skip}Skip-D{teacher}-C{complexity}-Pruned{thr}'.format(
 	task=TASK, backbone=BACKBONE, max_skip=MAX_SKIP, teacher=TEACHER_COEFF, complexity=COMPLEXITY_COEFF, thr=NUM_BLOCKS_PRUNED)
@@ -114,4 +114,5 @@ print(cmd)
 os.system(cmd)
 
 print(cmd + " --evaluate")
-os.system(cmd + " --evaluate")
+os.system(
+    cmd + " --evaluate")
